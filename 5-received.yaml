@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: received-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: received-app
+  template:
+    metadata:
+      labels:
+        app: received-app
+    spec:
+      containers:
+        - name: received-container
+          image: handersongodias/received-queue:latest
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "500m"
+            limits:
+              memory: "256Mi"
+              cpu: "1000m"
+          ports:
+            # - containerPort: 5672
+            # - containerPort: 6379
+            # - containerPort: 9000
+            - containerPort: 80
